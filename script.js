@@ -1,4 +1,7 @@
 const addBtn = document.getElementById('add');
+const notes = JSON.parse(localStorage.getItem('notes'));
+
+if (notes) notes.forEach((note) => addNote(note));
 
 addBtn.addEventListener('click', () => addNote());
 
@@ -30,6 +33,8 @@ function addNote(text = '') {
 
   deleteBtn.addEventListener('click', () => {
     note.remove();
+    // Remove from localStorage
+    updateLocalStorage();
   });
 
   // Shows text area and hides text box
@@ -41,7 +46,17 @@ function addNote(text = '') {
   textarea.addEventListener('input', (e) => {
     const { value } = e.target;
     main.innerHTML = marked(value);
+
+    // Update data in localstorage
+    updateLocalStorage();
   });
 
   document.body.appendChild(note);
+}
+
+function updateLocalStorage() {
+  const notesText = document.querySelectorAll('textarea');
+  const notes = [];
+  notesText.forEach((text) => notes.push(text.value));
+  localStorage.setItem('notes', JSON.stringify(notes));
 }
