@@ -12,6 +12,7 @@
 ## Description
 
 - Note taking app created using HTML + CSS + JS
+- Marked library for markdown support
 
 ## Screenshots
 
